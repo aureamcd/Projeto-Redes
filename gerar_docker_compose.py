@@ -19,16 +19,19 @@ def gerar_docker_compose():
     for r in roteadores:
         nome_roteador = r.lower()
         
-        # Serviço do roteador
         compose["services"][nome_roteador] = {
-            "build": "./roteador",
-            "container_name": nome_roteador,
-            "networks": [],
-            "cap_add": ["NET_ADMIN"],
-            "volumes": [
-                "./configs:/app/configs"  # Montagem do volume para os roteadores
-            ]
-        }
+    "build": "./roteador",
+    "container_name": nome_roteador,
+    "networks": [],
+    "cap_add": ["NET_ADMIN"],
+    "volumes": [
+        "./configs:/app/configs"
+    ],
+    "environment": [
+        f"ID={r}"
+    ]
+}
+
 
         # Sub-rede exclusiva para hosts e roteador
         rede_hosts = f"{nome_roteador}_net"

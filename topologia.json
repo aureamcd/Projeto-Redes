@@ -1,27 +1,27 @@
 [
     {
         "origem": "r0",
-        "destino": "r1",
-        "custo": 2
+        "destino": "r4",
+        "custo": 9
     },
     {
         "origem": "r0",
-        "destino": "r4",
-        "custo": 10
+        "destino": "r2",
+        "custo": 9
     },
     {
-        "origem": "r1",
-        "destino": "r4",
-        "custo": 8
+        "origem": "r0",
+        "destino": "r1",
+        "custo": 4
     },
     {
         "origem": "r2",
         "destino": "r4",
-        "custo": 10
+        "custo": 7
     },
     {
         "origem": "r3",
         "destino": "r4",
-        "custo": 1
+        "custo": 3
     }
 ]

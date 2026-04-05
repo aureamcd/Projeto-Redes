@@ -1,5 +1,4 @@
 FROM python:3.11-slim
 WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir
+COPY roteador.py .
 CMD ["python", "roteador.py"]

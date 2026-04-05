@@ -6,11 +6,12 @@ services:
     networks:
     - r1_net
     - r0_r1_net
-    - r1_r4_net
     cap_add:
     - NET_ADMIN
     volumes:
     - ./configs:/app/configs
+    environment:
+    - ID=r1
   host_1_1:
     build: ./host
     container_name: host_1_1
@@ -21,16 +22,65 @@ services:
     container_name: host_1_2
     networks:
     - r1_net
+  r0:
+    build: ./roteador
+    container_name: r0
+    networks:
+    - r0_net
+    - r0_r4_net
+    - r0_r2_net
+    - r0_r1_net
+    cap_add:
+    - NET_ADMIN
+    volumes:
+    - ./configs:/app/configs
+    environment:
+    - ID=r0
+  host_0_1:
+    build: ./host
+    container_name: host_0_1
+    networks:
+    - r0_net
+  host_0_2:
+    build: ./host
+    container_name: host_0_2
+    networks:
+    - r0_net
+  r3:
+    build: ./roteador
+    container_name: r3
+    networks:
+    - r3_net
+    - r3_r4_net
+    cap_add:
+    - NET_ADMIN
+    volumes:
+    - ./configs:/app/configs
+    environment:
+    - ID=r3
+  host_3_1:
+    build: ./host
+    container_name: host_3_1
+    networks:
+    - r3_net
+  host_3_2:
+    build: ./host
+    container_name: host_3_2
+    networks:
+    - r3_net
   r2:
     build: ./roteador
     container_name: r2
     networks:
     - r2_net
+    - r0_r2_net
     - r2_r4_net
     cap_add:
     - NET_ADMIN
     volumes:
     - ./configs:/app/configs
+    environment:
+    - ID=r2
   host_2_1:
     build: ./host
     container_name: host_2_1
@@ -47,13 +97,14 @@ services:
     networks:
     - r4_net
     - r0_r4_net
-    - r1_r4_net
     - r2_r4_net
     - r3_r4_net
     cap_add:
     - NET_ADMIN
     volumes:
     - ./configs:/app/configs
+    environment:
+    - ID=r4
   host_4_1:
     build: ./host
     container_name: host_4_1
@@ -64,63 +115,22 @@ services:
     container_name: host_4_2
     networks:
     - r4_net
-  r3:
-    build: ./roteador
-    container_name: r3
-    networks:
-    - r3_net
-    - r3_r4_net
-    cap_add:
-    - NET_ADMIN
-    volumes:
-    - ./configs:/app/configs
-  host_3_1:
-    build: ./host
-    container_name: host_3_1
-    networks:
-    - r3_net
-  host_3_2:
-    build: ./host
-    container_name: host_3_2
-    networks:
-    - r3_net
-  r0:
-    build: ./roteador
-    container_name: r0
-    networks:
-    - r0_net
-    - r0_r1_net
-    - r0_r4_net
-    cap_add:
-    - NET_ADMIN
-    volumes:
-    - ./configs:/app/configs
-  host_0_1:
-    build: ./host
-    container_name: host_0_1
-    networks:
-    - r0_net
-  host_0_2:
-    build: ./host
-    container_name: host_0_2
-    networks:
-    - r0_net
 networks:
   r1_net:
+    driver: bridge
+  r0_net:
+    driver: bridge
+  r3_net:
     driver: bridge
   r2_net:
     driver: bridge
   r4_net:
     driver: bridge
-  r3_net:
-    driver: bridge
-  r0_net:
-    driver: bridge
-  r0_r1_net:
-    driver: bridge
   r0_r4_net:
     driver: bridge
-  r1_r4_net:
+  r0_r2_net:
+    driver: bridge
+  r0_r1_net:
     driver: bridge
   r2_r4_net:
     driver: bridge
